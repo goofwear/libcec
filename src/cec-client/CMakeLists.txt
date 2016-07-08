@@ -59,7 +59,7 @@ if (NOT WIN32)
 else()
   add_definitions(-DTARGET_WINDOWS -DNOMINMAX -D_CRT_SECURE_NO_WARNINGS -D_WINSOCKAPI_)
   if (NOT ${WIN64})
-    add_definitions(-D_USE_32BIT_TIME_T)
+    # add_definitions(-D_USE_32BIT_TIME_T)
   endif()
 endif()
 
@@ -70,10 +70,8 @@ include_directories(${p8-platform_INCLUDE_DIRS}
 # write env.h
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/env.h.in ${CMAKE_CURRENT_SOURCE_DIR}/env.h)
 
-if (WIN32)
-  install(TARGETS     cec-client
-          DESTINATION .)
-else()
-  install(TARGETS     cec-client
-          DESTINATION bin/.)
-endif()
+install(TARGETS cec-client
+  RUNTIME DESTINATION bin
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+)
